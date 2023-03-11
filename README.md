@@ -1,9 +1,1 @@
-Le projet "Dîner des philosophes" est une simulation d'un dîner de philosophes où chaque philosophe a besoin de deux fourchettes pour manger. Les philosophes sont représentés par des threads et les fourchettes par des ressources partagées. Le but du projet est de modéliser la situation pour éviter les deadlock (interblocages) et les livelock (blocages continus).
-
-En termes d'algorithmie, le projet consiste à utiliser une approche de "prise et relâchement progressifs" pour éviter les blocages. Cette approche implique que chaque philosophe doit prendre une fourchette à la fois et la relâcher après avoir mangé, plutôt que de prendre les deux fourchettes simultanément. Ainsi, si une fourchette est déjà prise par un autre philosophe, le philosophe doit attendre que la fourchette soit disponible.
-
-En outre, pour éviter les deadlock, chaque philosophe doit attendre l'obtention de la première fourchette pour essayer d'obtenir la seconde, sinon cela peut entraîner une situation où chaque philosophe a une fourchette mais attend la seconde, créant ainsi un blocage.
-
-L'objectif est donc de trouver un équilibre entre la prise de fourchettes et leur libération pour éviter les blocages et les interblocages. Pour ce faire, différentes stratégies peuvent être utilisées, telles que l'utilisation de sémaphores pour synchroniser l'accès aux ressources partagées ou la mise en place d'une hiérarchie de priorités pour les philosophes.
-
-En résumé, le projet "Dîner des philosophes" consiste à modéliser une situation où plusieurs threads ont besoin d'accéder à des ressources partagées sans créer de blocages ou d'interblocages. L'approche algorithmique consiste à utiliser une approche de prise et relâchement progressifs pour éviter les blocages et à mettre en place des stratégies pour synchroniser l'accès aux ressources partagées.
+Bon push
