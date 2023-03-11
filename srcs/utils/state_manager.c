@@ -1,23 +1,37 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   state_manager.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jperrama <jperrama@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 15:30:18 by jperrama          #+#    #+#             */
+/*   Updated: 2023/03/06 16:15:08 by jperrama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../include/philosopher.h"
 
 /*
-	Fonction qui détruit les mutex pointés par forks dans
-	l'ordre inverse et libère la mémoire allouée pour forks, retourne -1.
+** Function that destroys the mutex pointed by forks in reverse order and
+** frees the memory allocated for forks, returns -1.
 */
-int mutex_clean(t_table *table, int i)
+int	mutex_clean(t_table *table, int i)
 {
-    while (i >= 0)
-    {
-        pthread_mutex_destroy(&table->forks[i--]);
-    }
-    return table->forks ? (free(table->forks), -1) : -1;
+	while (i >= 0)
+		pthread_mutex_destroy(&table->forks[i--]);
+	if (table->forks)
+		free(table->forks);
+	return (-1);
 }
 
-/* 	Fonction pour
-	libérer les ressources allouées pour les philosophes et les fourchettes.
+/*
+** Function to free the resources allocated for philosophers and forks.
 */
-void clean(t_table *table)
+void	clean(t_table *table)
 {
-    table->philo_list ? free(table->philo_list) : 0;
-    table->forks ? free(table->forks) : 0;
+	if (table->philo_list)
+		free(table->philo_list);
+	if (table->forks)
+		free(table->forks);
 }

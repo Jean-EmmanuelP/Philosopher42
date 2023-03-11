@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: jperrama <jperrama@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/06 15:29:30 by jperrama          #+#    #+#              #
+#    Updated: 2023/03/06 16:44:53 by jperrama         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 SRCS = $(addprefix srcs/, \
 	main.c \
 	$(addprefix philosophers/, \
@@ -8,6 +20,7 @@ SRCS = $(addprefix srcs/, \
 	$(addprefix utils/, \
 	checking_args.c \
 	chronology.c \
+	edge_case_philo_one.c \
 	finish.c \
 	print_message.c \
 	state_manager.c)) \
@@ -16,17 +29,18 @@ SRCS = $(addprefix srcs/, \
 	ft_split.c \
 	ft_strdup.c \
 	ft_strlen.c \
+	ft_print_message.c \
 	ft_freetab.c)
 
 HEADER = include/philosopher.h
 RM = rm -rf
 NAME = philo
-CC = gcc $(CFLAGS)
+CC = cc $(CFLAGS)
 
 OBJECTS = $(subst srcs/,srcs/build/,$(subst utilitaries/,utilitaries/build/,$(SRCS:.c=.o)))
 DEPEND = ${OBJECTS:.o=.d}
 
-CFLAGS = -Wall -Werror -Wextra -lpthread -pthread
+CFLAGS = -Wall -Werror -Wextra -pthread
 
 all: $(NAME)
 

@@ -1,10 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philosopher.h                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jperrama <jperrama@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/06 16:30:41 by jperrama          #+#    #+#             */
+/*   Updated: 2023/03/06 16:54:42 by jperrama         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILOSOPHER_H
 # define PHILOSOPHER_H
-# define PRINT_MESSAGE(p, format) \
-	pthread_mutex_lock(&(p->table->print)); \
-	printf("%lld %d " format "\n", runtime(p), p->num); \
-	pthread_mutex_unlock(&(p->table->print));
-
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -44,62 +51,64 @@ typedef struct s_philo
 */
 typedef struct s_table
 {
-    long long start_time;
-    int philo_count;
-    int philo_life;
-    int philo_meal;
-    int philo_sleep;
-    int philo_max_meal;
-    int death;
-    pthread_mutex_t death_auth;
-    pthread_mutex_t* forks;
-    pthread_mutex_t print;
-    struct s_philo* philo_list;
-    pthread_t monitor_id[2];
+	long long			start_time;
+	int					philo_count;
+	int					philo_life;
+	int					philo_meal;
+	int					philo_sleep;
+	int					philo_max_meal;
+	int					death;
+	pthread_mutex_t		death_auth;
+	pthread_mutex_t		*forks;
+	pthread_mutex_t		print;
+	struct s_philo		*philo_list;
+	pthread_t			monitor_id[2];
 }	t_table;
 
 /* LIB */
-long 			ft_atol(const char *str);
-char 			**ft_split(char const *s, char c);
-char 			*ft_strdup(const char *s1);
-char 			**ft_freetab(char **tab);
-unsigned long 	ft_strlen(const char *s);
+long					ft_atol(const char *str);
+char					**ft_split(char const *s, char c);
+char					*ft_strdup(const char *s1);
+char					**ft_freetab(char **tab);
+unsigned long			ft_strlen(const char *s);
+void					print_message(t_philo *p, const char *format);
 
 /* PARSING.C */
-int				parameter_table(int argc, char **argv, t_table *table);
+int						parameter_table(int argc, char **argv, t_table *table);
 
 /* TIME.C */
-long long 		timestamp_ms(void);
-long long 		runtime(struct s_philo *philo);
-int 			check_last_meal_time(t_philo *philo);
-void 			philo_update(t_philo *philo);
-void 			action_time(t_philo *philo, int action);
+long long				timestamp_ms(void);
+long long				runtime(struct s_philo *philo);
+int						check_last_meal_time(t_philo *philo);
+void					philo_update(t_philo *philo);
+void					action_time(t_philo *philo, int action);
 
 /* THREAD_MONITOR.C */
-void 			*ft_starve_monitor(void *ptr);
-void 			*ft_meal_monitor(void *ptr);
+void					*ft_starve_monitor(void *ptr);
+void					*ft_meal_monitor(void *ptr);
 
 /* STOP.C */
-void 			death_cert(t_table *table);
-int 			death_check(t_table *table);
-int 			last_meal_check(t_philo *philo);
+void					death_cert(t_table *table);
+int						death_check(t_table *table);
+int						last_meal_check(t_philo *philo);
 
 /* PHILO_LOOP.C */
-int 			stop_condition(t_philo *philo);
-void 			*ft_start_thread_philo(void *ptr);
+int						stop_condition(t_philo *philo);
+void					*ft_start_thread_philo(void *ptr);
 
 /* PHILO_CREATE.C */
-int 			create_start_philo(t_table *table);
+int						create_start_philo(t_table *table);
 
 /* MUTEX_PRINT.C */
-void 			ft_mutex_print_sleep(t_philo *philo);
-void 			ft_mutex_print_fork(t_philo *philo);
-void 			ft_mutex_print_think(t_philo *philo);
-void 			ft_mutex_print_eating(t_philo *philo);
-void 			ft_mutex_print_death(t_philo *philo);
+void					ft_mutex_print_sleep(t_philo *philo);
+void					ft_mutex_print_fork(t_philo *philo);
+void					ft_mutex_print_think(t_philo *philo);
+void					ft_mutex_print_eating(t_philo *philo);
+void					ft_mutex_print_death(t_philo *philo);
 
 /* PROBLEM_MANAGER.C */
-int 			mutex_clean(t_table *table, int i);
-void 			clean(t_table *table);
+int						mutex_clean(t_table *table, int i);
+void					clean(t_table *table);
+void					*thread_for_one(void *arg);
 
 #endif
